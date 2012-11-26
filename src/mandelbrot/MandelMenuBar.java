@@ -12,8 +12,10 @@ import javax.swing.JOptionPane;
  */
 public class MandelMenuBar extends JMenuBar {
  
-    private JMenu imageMenu, setMenu, frzMenu, zoomMenu;
-    private JMenuItem newMenu,quitMenu,colorMenu,helpMenu,aboutMenu,saveMenu,zoom2,zoom4,zoom1;
+    private JMenu imageMenu, setMenu, frzMenu, zoomMenu, modeMenu;
+    private JMenuItem newMenu, quitMenu, colorMenu, helpMenu,
+                      aboutMenu, saveMenu, zoom2, zoom4, zoom1,
+                      modeDefault, mode3, mode4, mode5;
     private MainFrame parent;
     
     public MandelMenuBar(MainFrame parent) {
@@ -41,23 +43,40 @@ public class MandelMenuBar extends JMenuBar {
         
         colorMenu = new JMenuItem("Color …");
         zoomMenu = new JMenu("Zoom");
+        modeMenu = new JMenu("Mode …");
         
         colorMenu.addActionListener(parent);
         
         setMenu.add(colorMenu);
         setMenu.add(zoomMenu);
+        setMenu.add(modeMenu);
         
         zoom1 = new JMenuItem("1x");
         zoom2 = new JMenuItem("2x");
         zoom4 = new JMenuItem("4x");
         
+        modeDefault = new JMenuItem("2 (default)");
+        mode3 = new JMenuItem("3");
+        mode4 = new JMenuItem("4");
+        mode5 = new JMenuItem("5");
+        
         zoom1.addActionListener(parent);
         zoom2.addActionListener(parent);
         zoom4.addActionListener(parent);
         
+        modeDefault.addActionListener(parent);
+        mode3.addActionListener(parent);
+        mode4.addActionListener(parent);
+        mode5.addActionListener(parent);
+        
         zoomMenu.add(zoom1);
         zoomMenu.add(zoom2);
         zoomMenu.add(zoom4);
+        
+        modeMenu.add(modeDefault);
+        modeMenu.add(mode3);
+        modeMenu.add(mode4);
+        modeMenu.add(mode5);
         
         
         frzMenu = new JMenu("Help");

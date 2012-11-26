@@ -15,6 +15,10 @@ public final class MandelSetter {
     private double xStart, yStart, xEnd, yEnd;
     private double increment;
     private int zoom, zoomFactor = 2;
+    /*
+     * int mode: 2 is standard, everything else are different sets.
+     */
+    private int mode = 2;
     
     MandelSetter(int width, int height) {
         this.width = width;
@@ -176,8 +180,22 @@ public final class MandelSetter {
                     
                     xSave = xPara;
                     
-                    xPara = xPara * xPara - yPara * yPara + x;
-                    yPara = 2 * xSave * yPara + y;
+                    switch (mode) {
+                        case 2: xPara = xPara * xPara - yPara * yPara + x;
+                                yPara = 2 * xSave * yPara + y;
+                                break;
+                        case 3: xPara = xPara * xPara * xPara - 3 * xPara * yPara * yPara + x;
+                                yPara = 3 * xSave * xSave * yPara - yPara * yPara * yPara + y;
+                                break;
+                        case 4: xPara = xPara * xPara * xPara  * xPara - 6 * xPara * xPara * yPara * yPara
+                                        + yPara * yPara * yPara * yPara + x;
+                                yPara = 4 * xSave * xSave * xSave * yPara - 4 * xSave * yPara * yPara * yPara + y;
+                                break;
+                        case 5: xPara = xPara * xPara * xPara * xPara * xPara * - 10 * xPara * xPara * xPara * yPara
+                                        * yPara + 5 * xPara * yPara * yPara * yPara * yPara + x;
+                                yPara = 5 * xPara * xPara * xPara * xPara * yPara - 10 * xPara * xPara * yPara * yPara
+                                        * yPara + yPara * yPara* yPara* yPara* yPara + y;
+                    }
                     
                     absVal = xPara * xPara + yPara * yPara;
                     
@@ -243,6 +261,11 @@ public final class MandelSetter {
     
     public final int[][] getMandelSet() {
         return mandelSet;
+    }
+    
+    public void setMode(int mode) {
+        this.mode = mode;
+        reload();
     }
     
     

@@ -107,6 +107,25 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
         else if (ae.getActionCommand().equals("4x")) {
             Setter.setZoom(4);
         }
+        else if (ae.getActionCommand().equals("2 (default)")) {
+            Setter.setMode(2);
+            MandelArr = Setter.getMandelSet();
+            Image.reDo(MandelArr);
+        }
+        else if (ae.getActionCommand().equals("3")) {
+            Setter.setMode(3);
+            MandelArr = Setter.getMandelSet();
+            Image.reDo(MandelArr);
+        }
+        else if (ae.getActionCommand().equals("4")) {
+            Setter.setMode(4);
+            MandelArr = Setter.getMandelSet();
+            Image.reDo(MandelArr);
+        }else if (ae.getActionCommand().equals("5")) {
+            Setter.setMode(5);
+            MandelArr = Setter.getMandelSet();
+            Image.reDo(MandelArr);
+        }
     }
     
     /*
