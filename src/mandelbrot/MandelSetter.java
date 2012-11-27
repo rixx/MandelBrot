@@ -10,6 +10,7 @@ package mandelbrot;
 public final class MandelSetter {
     
     private int[][] mandelSet;
+    private int[][] Pascal;
     private int width, height;
     private double realWidth, realHeight;
     private double xStart, yStart, xEnd, yEnd;
@@ -25,6 +26,8 @@ public final class MandelSetter {
         this.height = height;
         
         mandelSet = new int[width+1][height];
+        
+        generatePascal();
         
         reload();
         
@@ -149,10 +152,13 @@ public final class MandelSetter {
         double x,y,xPara,yPara,xSave,period,absVal;
         int iteration,maxIteration,periodCount,xIter,yIter;
         int savex = 0, savey = 0;
+        double[] XY;
         boolean done;
         
         maxIteration = 255 + 2*(int)(zoom);
         mandelSet[width][0] = maxIteration;
+        
+        XY = new double[2];
         
         realWidth = Math.abs(xStart-xEnd);
         realHeight = Math.abs(yStart-yEnd);
@@ -180,7 +186,12 @@ public final class MandelSetter {
                     
                     xSave = xPara;
                     
-                    switch (mode) {
+                    XY = getNextXY(xPara,yPara,x,y,mode);
+                    
+                    xPara = XY[0];
+                    yPara = XY[1];
+                    
+                    /*switch (mode) {
                         case 2: xPara = xPara * xPara - yPara * yPara + x;
                                 yPara = 2 * xSave * yPara + y;
                                 break;
@@ -195,7 +206,7 @@ public final class MandelSetter {
                                         * yPara + 5 * xPara * yPara * yPara * yPara * yPara + x;
                                 yPara = 5 * xSave * xSave * xSave * xSave * yPara - 10 * xSave * xSave * yPara * yPara
                                         * yPara + yPara * yPara* yPara* yPara* yPara + y;
-                    }
+                    }*/
                     
                     absVal = xPara * xPara + yPara * yPara;
                     
@@ -268,5 +279,70 @@ public final class MandelSetter {
         reload();
     }
     
+    private double[] getNextXY(double xPara, double yPara, double x, double y, int mode) {
+        
+        double xTotal, yTotal, temp;
+        int outerIterator, innerIterator;
+        
+        xTotal = 0;
+        yTotal = 0;
+        
+        for (outerIterator = 1; outerIterator <= mode + 1; outerIterator++) {
+            
+            temp = 1;
+            
+            for (innerIterator = 1; innerIterator <= mode; innerIterator++) {
+                
+                if (innerIterator <= mode - outerIterator + 1) {
+                    temp *= xPara;
+                } else {
+                    temp *= yPara;
+                }
+            }
+            
+            temp *= Pascal[mode][outerIterator - 1];
+            
+            if ((outerIterator % 4 == 3) || (outerIterator % 4 == 0)) {
+                temp *= (-1);
+            }
+            
+            if (outerIterator % 2 == 1) {
+                xTotal += temp;
+            } else {
+                yTotal += temp;
+            }
+        }
+        
+        xTotal += x;
+        yTotal += y;
+        
+        return new double[]{xTotal,yTotal};
+        
+    }
     
+    private void generatePascal() {
+        
+        Pascal = new int[11][12];
+        
+        Pascal[0][0] = 1;
+        Pascal[1][0] = 1;
+        Pascal[1][1] = 1;
+        
+        
+        for (int row = 2; row  <= 10; row++) {
+            
+            for(int column = 0; column <= row + 1; column++) {
+                
+                if ((column == 0) || (column == row)) {
+                    Pascal[row][column] = 1;
+                } else {
+                    Pascal[row][column] = Pascal[row - 1][column - 1] + Pascal[row - 1][column];
+                }
+            }
+        }
+        
+        System.out.println(Pascal[3][4]);
+        
+        
+    }
 }
