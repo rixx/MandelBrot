@@ -151,14 +151,11 @@ public final class MandelSetter {
     private void calculate() {
         double x,y,xPara,yPara,xSave,period,absVal;
         int iteration,maxIteration,periodCount,xIter,yIter;
-        int savex = 0, savey = 0;
         double[] XY;
         boolean done;
         
         maxIteration = 255 + 2*(int)(zoom);
         mandelSet[width][0] = maxIteration;
-        
-        XY = new double[2];
         
         realWidth = Math.abs(xStart-xEnd);
         realHeight = Math.abs(yStart-yEnd);
@@ -184,29 +181,10 @@ public final class MandelSetter {
                  * the boundary of 2*/
                 while ((iteration < maxIteration) && (done == false)) {
                     
-                    xSave = xPara;
-                    
                     XY = getNextXY(xPara,yPara,x,y,mode);
                     
                     xPara = XY[0];
                     yPara = XY[1];
-                    
-                    /*switch (mode) {
-                        case 2: xPara = xPara * xPara - yPara * yPara + x;
-                                yPara = 2 * xSave * yPara + y;
-                                break;
-                        case 3: xPara = xPara * xPara * xPara - 3 * xPara * yPara * yPara + x;
-                                yPara = 3 * xSave * xSave * yPara - yPara * yPara * yPara + y;
-                                break;
-                        case 4: xPara = xPara * xPara * xPara  * xPara - 6 * xPara * xPara * yPara * yPara
-                                        + yPara * yPara * yPara * yPara + x;
-                                yPara = 4 * xSave * xSave * xSave * yPara - 4 * xSave * yPara * yPara * yPara + y;
-                                break;
-                        case 5: xPara = xPara * xPara * xPara * xPara * xPara - 10 * xPara * xPara * xPara * yPara
-                                        * yPara + 5 * xPara * yPara * yPara * yPara * yPara + x;
-                                yPara = 5 * xSave * xSave * xSave * xSave * yPara - 10 * xSave * xSave * yPara * yPara
-                                        * yPara + yPara * yPara* yPara* yPara* yPara + y;
-                    }*/
                     
                     absVal = xPara * xPara + yPara * yPara;
                     
@@ -279,6 +257,10 @@ public final class MandelSetter {
         reload();
     }
     
+    
+    /*
+     * Seriously, bow before me.
+     */
     private double[] getNextXY(double xPara, double yPara, double x, double y, int mode) {
         
         double xTotal, yTotal, temp;
@@ -320,6 +302,9 @@ public final class MandelSetter {
         
     }
     
+    /* 
+     * Generates the Pascal Triangle, stored in the private global var Pascal[][]
+     */
     private void generatePascal() {
         
         Pascal = new int[11][12];
