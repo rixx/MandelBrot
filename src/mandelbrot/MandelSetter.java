@@ -191,9 +191,9 @@ public final class MandelSetter {
                                         + yPara * yPara * yPara * yPara + x;
                                 yPara = 4 * xSave * xSave * xSave * yPara - 4 * xSave * yPara * yPara * yPara + y;
                                 break;
-                        case 5: xPara = xPara * xPara * xPara * xPara * xPara * - 10 * xPara * xPara * xPara * yPara
+                        case 5: xPara = xPara * xPara * xPara * xPara * xPara - 10 * xPara * xPara * xPara * yPara
                                         * yPara + 5 * xPara * yPara * yPara * yPara * yPara + x;
-                                yPara = 5 * xPara * xPara * xPara * xPara * yPara - 10 * xPara * xPara * yPara * yPara
+                                yPara = 5 * xSave * xSave * xSave * xSave * yPara - 10 * xSave * xSave * yPara * yPara
                                         * yPara + yPara * yPara* yPara* yPara* yPara + y;
                     }
                     
