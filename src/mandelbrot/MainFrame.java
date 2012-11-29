@@ -27,7 +27,8 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
     private MandelStatusBar StatusBar;
     private int[][] MandelArr;
     private int[] DragCoord;
-    private Boolean wasResized = false; 
+    //private Boolean wasResized = false; 
+    private boolean wasResized = false;
     
     public static void main(String[] args) {
         
@@ -76,7 +77,7 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
     /*
      * Handles clicks on the menus.
      */
-    @Override
+    //@Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getActionCommand().equals("New")) {
             Setter.reload();
@@ -152,7 +153,7 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
      * Handles clicks on the Image.
      * Left click => zooming in; right click => zooming out.
      */
-    @Override
+    //@Override
     public void mouseClicked(MouseEvent me) {
         int x = me.getX();
         int y = me.getY();
@@ -173,7 +174,7 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
     /*Gets the mouse coordinates when the mouse is pressed 
      * TODO: Image follows cursor when dragged.
      */
-    @Override
+    //@Override
     public void mousePressed(MouseEvent me) {
         if (me.getSource() == Image) {
             DragCoord[0] = me.getX();
@@ -186,7 +187,7 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
     /* Gets the mouse coordinates when the mouse is released.
      * If the mouse has moved while being pressed, the Image is dragged.
      */
-    @Override
+    //@Override
     public void mouseReleased(MouseEvent me) {
         
         if (me.getSource() == Image) {
@@ -204,7 +205,7 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
        
     }
 
-    @Override
+    //@Override
     public void mouseEntered(MouseEvent me) {
         
         if (wasResized == true) {
@@ -214,12 +215,12 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
         }
     }
 
-    @Override
+    //@Override
     public void mouseExited(MouseEvent me) {
         
     }
     
-    @Override
+    //@Override
     public void repaint() {
         Image.setSpectrum(ColorForm.Spectrum);
         Image.reDo(MandelArr);
@@ -236,23 +237,23 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
         
     }
 
-    @Override
+    //@Override
     public void componentResized(ComponentEvent ce) {
         wasResized = true;
         
     }
 
-    @Override
+    //@Override
     public void componentMoved(ComponentEvent ce) {
         
     }
 
-    @Override
+    //@Override
     public void componentShown(ComponentEvent ce) {
         
     }
 
-    @Override
+    //@Override
     public void componentHidden(ComponentEvent ce) {
         
     }

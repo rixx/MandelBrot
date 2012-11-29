@@ -27,7 +27,8 @@ public class ImagePanel extends JPanel {
     int[][] MandelArr;
     public int width, height, maxIteration;
     int stripestart, stripewidth;
-    private Boolean firstTime;
+    //private Boolean firstTime;
+    private boolean firstTime;
     MainFrame parent;
     
     ImagePanel(int width, int height, int[][] MandelArr, MainFrame parent) {
@@ -48,7 +49,7 @@ public class ImagePanel extends JPanel {
      * Getting the colors for every entry in the array, and setting
      * the pixels by drawing a 1x1 rectangle ... Java.
      */
-    @Override
+    //@Override
     public void paint(Graphics g) {
         int x,y;
         
