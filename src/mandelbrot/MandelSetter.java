@@ -181,10 +181,17 @@ public final class MandelSetter {
                  * the boundary of 2*/
                 while ((iteration < maxIteration) && (done == false)) {
                     
-                    XY = getNextXY(xPara,yPara,x,y,mode);
                     
-                    xPara = XY[0];
-                    yPara = XY[1];
+                    if (mode ==2) {
+                        double temp = xPara;
+                        xPara = xPara * xPara - yPara * yPara + x;
+                        yPara = 2 * temp * yPara +y;
+                    } else {
+                        XY = getNextXY(xPara,yPara,x,y,mode);
+
+                        xPara = XY[0];
+                        yPara = XY[1];
+                    }
                     
                     absVal = xPara * xPara + yPara * yPara;
                     
