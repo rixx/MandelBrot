@@ -49,7 +49,7 @@ public class ImagePanel extends JPanel {
      * Getting the colors for every entry in the array, and setting
      * the pixels by drawing a 1x1 rectangle ... Java.
      */
-    //@Override
+    @Override
     public void paint(Graphics g) {
         int x,y;
         

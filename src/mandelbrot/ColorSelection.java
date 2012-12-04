@@ -152,7 +152,7 @@ class MyPreviewPane extends JLabel{
     
     ColorSelectionModel model = chooser.getSelectionModel();
     model.addChangeListener(new ChangeListener() {
-//        @Override
+        @Override
       public void stateChanged(ChangeEvent evt) {
         ColorSelectionModel model = (ColorSelectionModel) evt.getSource();
         curColor = model.getSelectedColor();
@@ -160,7 +160,7 @@ class MyPreviewPane extends JLabel{
     });
     setPreferredSize(new Dimension(50, 50));
   }
-//    @Override
+    @Override
   public void paint(Graphics g) {
     g.setColor(curColor);
     g.fillRect(0, 0, getWidth() - 1, getHeight() - 1);

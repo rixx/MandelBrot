@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
  */
 public class MandelMenuBar extends JMenuBar {
  
-    private JMenu imageMenu, setMenu, frzMenu, zoomMenu, modeMenu;
-    private JMenuItem newMenu, quitMenu, colorMenu, helpMenu,
+    private JMenu imageMenu, setMenu, frzMenu, zoomMenu;
+    private JMenuItem newMenu, quitMenu, colorMenu, helpMenu, modeMenu,
                       aboutMenu, saveMenu, zoom2, zoom4, zoom1, mode9, mode10,
                       modeDefault, mode3, mode4, mode5, mode6, mode7, mode8;
     private MainFrame parent;
@@ -43,9 +43,10 @@ public class MandelMenuBar extends JMenuBar {
         
         colorMenu = new JMenuItem("Color …");
         zoomMenu = new JMenu("Zoom");
-        modeMenu = new JMenu("Mode …");
+        modeMenu = new JMenuItem("Mode …");
         
         colorMenu.addActionListener(parent);
+        modeMenu.addActionListener(parent);
         
         setMenu.add(colorMenu);
         setMenu.add(zoomMenu);
@@ -55,44 +56,13 @@ public class MandelMenuBar extends JMenuBar {
         zoom2 = new JMenuItem("2x");
         zoom4 = new JMenuItem("4x");
         
-        modeDefault = new JMenuItem("2 (default)");
-        mode3 = new JMenuItem("3");
-        mode4 = new JMenuItem("4");
-        mode5 = new JMenuItem("5");
-        mode6 = new JMenuItem("6");
-        mode7 = new JMenuItem("7");
-        mode8 = new JMenuItem("8");
-        mode9 = new JMenuItem("9");
-        mode10 = new JMenuItem("10");
-        
         zoom1.addActionListener(parent);
         zoom2.addActionListener(parent);
         zoom4.addActionListener(parent);
         
-        modeDefault.addActionListener(parent);
-        mode3.addActionListener(parent);
-        mode4.addActionListener(parent);
-        mode5.addActionListener(parent);
-        mode6.addActionListener(parent);
-        mode7.addActionListener(parent);
-        mode8.addActionListener(parent);
-        mode9.addActionListener(parent);
-        mode10.addActionListener(parent);
-        
         zoomMenu.add(zoom1);
         zoomMenu.add(zoom2);
         zoomMenu.add(zoom4);
-        
-        modeMenu.add(modeDefault);
-        modeMenu.add(mode3);
-        modeMenu.add(mode4);
-        modeMenu.add(mode5);
-        modeMenu.add(mode6);
-        modeMenu.add(mode7);
-        modeMenu.add(mode8);
-        modeMenu.add(mode9);
-        modeMenu.add(mode10);
-        
         
         frzMenu = new JMenu("Help");
         this.add(frzMenu);

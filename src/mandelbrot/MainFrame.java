@@ -20,9 +20,9 @@ import javax.swing.JFrame;
 public class MainFrame extends JFrame implements ActionListener,MouseListener,ComponentListener{
  
     private ImagePanel Image;
-    //private int width, height;
     private MandelMenuBar menuBar;
     private SchemeSelection ColorForm;
+    private ModeSelection ModeForm;
     private MandelSetter Setter;
     private MandelStatusBar StatusBar;
     private int[][] MandelArr;
@@ -37,8 +37,6 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
 
     /*Initializing, initializing*/
     MainFrame() {
-        //width = 800;
-        //height = 600;
         
         DragCoord = new int[4];
         
@@ -61,6 +59,7 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
         MandelArr = Setter.getMandelSet();
         
         ColorForm = new SchemeSelection(this);
+        ModeForm = new ModeSelection(this);
         
         Image = new ImagePanel(getWidth(), getHeight(),MandelArr,this);
         getContentPane().add(Image, BorderLayout.CENTER);
@@ -77,7 +76,7 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
     /*
      * Handles clicks on the menus.
      */
-    //@Override
+    @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getActionCommand().equals("New")) {
             Setter.reload();
@@ -108,44 +107,8 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
         else if (ae.getActionCommand().equals("4x")) {
             Setter.setZoom(4);
         }
-        else if (ae.getActionCommand().equals("2 (default)")) {
-            Setter.setMode(2);
-            MandelArr = Setter.getMandelSet();
-            Image.reDo(MandelArr);
-        }
-        else if (ae.getActionCommand().equals("3")) {
-            Setter.setMode(3);
-            MandelArr = Setter.getMandelSet();
-            Image.reDo(MandelArr);
-        }
-        else if (ae.getActionCommand().equals("4")) {
-            Setter.setMode(4);
-            MandelArr = Setter.getMandelSet();
-            Image.reDo(MandelArr);
-        }else if (ae.getActionCommand().equals("5")) {
-            Setter.setMode(5);
-            MandelArr = Setter.getMandelSet();
-            Image.reDo(MandelArr);
-        }else if (ae.getActionCommand().equals("6")) {
-            Setter.setMode(6);
-            MandelArr = Setter.getMandelSet();
-            Image.reDo(MandelArr);
-        }else if (ae.getActionCommand().equals("7")) {
-            Setter.setMode(7);
-            MandelArr = Setter.getMandelSet();
-            Image.reDo(MandelArr);
-        }else if (ae.getActionCommand().equals("8")) {
-            Setter.setMode(8);
-            MandelArr = Setter.getMandelSet();
-            Image.reDo(MandelArr);
-        }else if (ae.getActionCommand().equals("9")) {
-            Setter.setMode(9);
-            MandelArr = Setter.getMandelSet();
-            Image.reDo(MandelArr);
-        }else if (ae.getActionCommand().equals("10")) {
-            Setter.setMode(10);
-            MandelArr = Setter.getMandelSet();
-            Image.reDo(MandelArr);
+        else if (ae.getActionCommand().equals("Mode …")) {
+            ModeForm.setVisible(true);
         }
     }
     
@@ -153,7 +116,7 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
      * Handles clicks on the Image.
      * Left click => zooming in; right click => zooming out.
      */
-    //@Override
+    @Override
     public void mouseClicked(MouseEvent me) {
         int x = me.getX();
         int y = me.getY();
@@ -174,7 +137,7 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
     /*Gets the mouse coordinates when the mouse is pressed 
      * TODO: Image follows cursor when dragged.
      */
-    //@Override
+    @Override
     public void mousePressed(MouseEvent me) {
         if (me.getSource() == Image) {
             DragCoord[0] = me.getX();
@@ -187,7 +150,7 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
     /* Gets the mouse coordinates when the mouse is released.
      * If the mouse has moved while being pressed, the Image is dragged.
      */
-    //@Override
+    @Override
     public void mouseReleased(MouseEvent me) {
         
         if (me.getSource() == Image) {
@@ -205,7 +168,7 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
        
     }
 
-    //@Override
+    @Override
     public void mouseEntered(MouseEvent me) {
         
         if (wasResized == true) {
@@ -215,12 +178,12 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
         }
     }
 
-    //@Override
+    @Override
     public void mouseExited(MouseEvent me) {
         
     }
     
-    //@Override
+    @Override
     public void repaint() {
         Image.setSpectrum(ColorForm.Spectrum);
         Image.reDo(MandelArr);
@@ -231,31 +194,37 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
         
         Setter.resize(getWidth(), getHeight());
         MandelArr = Setter.getMandelSet();
-        
         Image.resize(getWidth(), getHeight(), MandelArr);
         
         
     }
 
-    //@Override
+    @Override
     public void componentResized(ComponentEvent ce) {
         wasResized = true;
         
     }
 
-    //@Override
+    @Override
     public void componentMoved(ComponentEvent ce) {
         
     }
 
-    //@Override
+    @Override
     public void componentShown(ComponentEvent ce) {
         
     }
 
-    //@Override
+    @Override
     public void componentHidden(ComponentEvent ce) {
         
+    }
+    
+    public void setMode(int mode) {
+        Setter.setMode(mode);
+        MandelArr = Setter.getMandelSet();
+        Image.reDo(MandelArr);
+
     }
     
 

@@ -340,7 +340,7 @@ public class SchemeSelection extends javax.swing.JFrame implements MouseListener
     private javax.swing.JRadioButton rbStandard;
     // End of variables declaration//GEN-END:variables
 
-//    @Override
+    @Override
     public void mouseClicked(MouseEvent me) {
         int x,y;
         
@@ -366,20 +366,20 @@ public class SchemeSelection extends javax.swing.JFrame implements MouseListener
         showPanels();
     }
   */  
-//    @Override
+    @Override
     public void mousePressed(MouseEvent me) {
         
     }
 
-//    @Override
+    @Override
     public void mouseReleased(MouseEvent me) {
     }
 
-//    @Override
+    @Override
     public void mouseEntered(MouseEvent me) {
     }
 
-//    @Override
+    @Override
     public void mouseExited(MouseEvent me) {
     }
 }
