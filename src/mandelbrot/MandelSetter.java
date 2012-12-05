@@ -1,5 +1,8 @@
 package mandelbrot;
 
+import javax.swing.JProgressBar;
+import javax.swing.SwingUtilities;
+
 
 /**
  * The setter computes the actual Mandel Set. 
@@ -16,6 +19,9 @@ public final class MandelSetter {
     private double xStart, yStart, xEnd, yEnd;
     private double increment;
     private int zoom, zoomFactor = 2;
+    private JProgressBar ProgBar;
+    private ImagePanel Image;
+    
     /*
      * int mode: 2 is standard, everything else are different sets.
      */
@@ -29,7 +35,7 @@ public final class MandelSetter {
         
         generatePascal();
         
-        reload();
+        
         
     }
     
@@ -149,87 +155,107 @@ public final class MandelSetter {
      * The actual calculation.
      */
     private void calculate() {
-        double x,y,xPara,yPara,xSave,period,absVal;
-        int iteration,maxIteration,periodCount,xIter,yIter;
-        double[] XY;
-        boolean done;
         
-        maxIteration = 255 + 2*(int)(zoom);
-        mandelSet[width][0] = maxIteration;
-        
-        realWidth = Math.abs(xStart-xEnd);
-        realHeight = Math.abs(yStart-yEnd);
-        increment = getIncrement();
-        
-        for (yIter = 0; yIter < height; yIter++){
-        
-            for (xIter = 0; xIter < width; xIter++) {
-        
-                /*set x and y to their actual values*/
-                x = xStart + xIter * increment;
-                y = yStart - yIter * increment;
-                
-                xPara = x;
-                yPara = y;
-                
-                iteration = 0;
-                done = false;
-                period = 0;
-                periodCount = 0;
-                
-                /*calculate the sequence; stop if the absolute value has exceeded  
-                 * the boundary of 2*/
-                while ((iteration < maxIteration) && (done == false)) {
-                    
-                    
-                    if (mode ==2) {
-                        double temp = xPara;
-                        xPara = xPara * xPara - yPara * yPara + x;
-                        yPara = 2 * temp * yPara +y;
-                    } else {
-                        XY = getNextXY(xPara,yPara,x,y,mode);
+        Thread thread = new Thread(new Runnable() {
+            double x,y,xPara,yPara,xSave,period,absVal;
+            int iteration,maxIteration,periodCount,xIter,yIter;
+            double[] XY;
+            boolean done;
 
-                        xPara = XY[0];
-                        yPara = XY[1];
-                    }
-                    
-                    absVal = xPara * xPara + yPara * yPara;
-                    
-                    if (absVal > 4) {
-                        
-                        mandelSet[xIter][yIter] = iteration;
-                        done = true;
-                      
-                    /*Stop if periodivity is found */    
-                    } else {
-                        
-                        if (periodCount == 0) {
-                            periodCount = ((iteration / 8) + 1) * 8;
-                            period = absVal;
-                            
-                        } else {
-                            periodCount --;
-                            
-                            if (period == absVal) {
-                                done = true;
-                                mandelSet[xIter][yIter] = -1;
+        
+        
+            @Override
+            public void run(){
+                ProgBar.setVisible(true);
+        
+                maxIteration = 255 + 2*(int)(zoom);
+                mandelSet[width][0] = maxIteration;
+
+                realWidth = Math.abs(xStart-xEnd);
+                realHeight = Math.abs(yStart-yEnd);
+                increment = getIncrement();
+
+
+                for (yIter = 0; yIter < height; yIter++){
+
+                    for (xIter = 0; xIter < width; xIter++) {
+
+                        /*set x and y to their actual values*/
+                        x = xStart + xIter * increment;
+                        y = yStart - yIter * increment;
+
+                        xPara = x;
+                        yPara = y;
+
+                        iteration = 0;
+                        done = false;
+                        period = 0;
+                        periodCount = 0;
+
+                        /*calculate the sequence; stop if the absolute value has exceeded  
+                         * the boundary of 2*/
+                        while ((iteration < maxIteration) && (done == false)) {
+
+
+                            if (mode ==2) {
+                                double temp = xPara;
+                                xPara = xPara * xPara - yPara * yPara + x;
+                                yPara = 2 * temp * yPara +y;
+                            } else {
+                                XY = getNextXY(xPara,yPara,x,y,mode);
+
+                                xPara = XY[0];
+                                yPara = XY[1];
                             }
-                        }
-                        
-                        if (iteration + 1 == maxIteration) {
-                            mandelSet[xIter][yIter] = -1;
-                        }
-                    } // END if
-                    
-                    iteration++;
-                    
-                } //END while
-                
-            } //END for(y)
-            
-        } //END for (x)
-        
-        
+
+                            absVal = xPara * xPara + yPara * yPara;
+
+                            if (absVal > 4) {
+
+                                mandelSet[xIter][yIter] = iteration;
+                                done = true;
+
+                            /*Stop if periodivity is found */    
+                            } else {
+
+                                if (periodCount == 0) {
+                                    periodCount = ((iteration / 8) + 1) * 8;
+                                    period = absVal;
+
+                                } else {
+                                    periodCount --;
+
+                                    if (period == absVal) {
+                                        done = true;
+                                        mandelSet[xIter][yIter] = -1;
+                                    }
+                                }
+
+                                if (iteration + 1 == maxIteration) {
+                                    mandelSet[xIter][yIter] = -1;
+                                }
+                            } // END if
+
+                            iteration++;
+
+                        } //END while
+
+                        //int percent = (int)(100* (xIter*width + yIter)   /(width*height)  );
+
+
+                    } //END for(y)
+                    int percent = (int)(100*(1+yIter)/height);
+                    ProgBar.setValue(percent);
+
+
+                } //END for (x)
+
+                ProgBar.setVisible(false);
+                ProgBar.setValue(0);
+
+                Image.reDo(mandelSet);
+            }});
+            thread.start();
     
     }
     
@@ -314,14 +340,14 @@ public final class MandelSetter {
      */
     private void generatePascal() {
         
-        Pascal = new int[11][12];
+        Pascal = new int[16][17];
         
         Pascal[0][0] = 1;
         Pascal[1][0] = 1;
         Pascal[1][1] = 1;
         
         
-        for (int row = 2; row  <= 10; row++) {
+        for (int row = 2; row  <= 15; row++) {
             
             for(int column = 0; column <= row + 1; column++) {
                 
@@ -336,5 +362,13 @@ public final class MandelSetter {
         System.out.println(Pascal[3][4]);
         
         
+    }
+    
+    public void setProgBar(JProgressBar ProgBar) {
+        this.ProgBar = ProgBar;
+    }
+    
+    public void setImage(ImagePanel Image) {
+        this.Image = Image;
     }
 }

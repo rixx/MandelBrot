@@ -4,7 +4,6 @@
  */
 package mandelbrot;
 
-import java.awt.HeadlessException;
 import javax.swing.JOptionPane;
 
 /**
@@ -118,7 +117,7 @@ public class ModeSelection extends javax.swing.JFrame {
     private void MandelModeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_MandelModeFocusLost
         try {
             if (Integer.parseInt(MandelMode.getText()) > 4 && Integer.parseInt(MandelMode.getText())<=15) {
-                JOptionPane.showMessageDialog(this, "This will be very slow for values greater than 2 (default).", "Warning", JOptionPane.ERROR_MESSAGE);
+                //JOptionPane.showMessageDialog(this, "This will be very slow for values greater than 2 (default).", "Warning", JOptionPane.ERROR_MESSAGE);
             }
         } catch (NumberFormatException  e) {
             
@@ -133,7 +132,7 @@ boolean isValidMode() {
     try {
         int i = Integer.parseInt(MandelMode.getText());
         
-        if ((i > 1) && (i < 11)) {
+        if ((i > 1) && (i < 16)) {
             return true;
         } else {
             return false;

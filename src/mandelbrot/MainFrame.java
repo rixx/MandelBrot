@@ -11,6 +11,7 @@ import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.JFrame;
+import javax.swing.JProgressBar;
 
 /**
  * The MainFrame handles everything else. It has the MenuBar and the
@@ -29,6 +30,7 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
     private int[] DragCoord;
     //private Boolean wasResized = false; 
     private boolean wasResized = false;
+    private JProgressBar ProgBar;
     
     public static void main(String[] args) {
         
@@ -53,17 +55,25 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
         
         StatusBar = new MandelStatusBar();
         add(StatusBar, BorderLayout.SOUTH);
-        StatusBar.setPreferredSize(new Dimension(this.getWidth(), 16));
+        StatusBar.setPreferredSize(new Dimension(this.getWidth(), 20));
         
-        Setter = new MandelSetter(getWidth(), getHeight());
-        MandelArr = Setter.getMandelSet();
-        
-        ColorForm = new SchemeSelection(this);
-        ModeForm = new ModeSelection(this);
+        ProgBar = new JProgressBar(1,100);
+        add(ProgBar, BorderLayout.NORTH);
+        //ProgBar.setVisible(false);
         
         Image = new ImagePanel(getWidth(), getHeight(),MandelArr,this);
         getContentPane().add(Image, BorderLayout.CENTER);
         Image.addMouseListener(this);
+        
+        Setter = new MandelSetter(getWidth(), getHeight());
+        Setter.setProgBar(ProgBar);
+        Setter.setImage(Image);
+        Setter.reload();
+        MandelArr = Setter.getMandelSet();
+        
+        
+        ColorForm = new SchemeSelection(this);
+        ModeForm = new ModeSelection(this);
         
         setVisible(true);
         StatusBar.setZoom(Setter.getZoom());
@@ -80,8 +90,7 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
     public void actionPerformed(ActionEvent ae) {
         if (ae.getActionCommand().equals("New")) {
             Setter.reload();
-            MandelArr = Setter.getMandelSet();
-            Image.reDo(MandelArr);
+            newPaint();
         }
         else if(ae.getActionCommand().equals("Quit")) {
             System.exit(0);
@@ -128,8 +137,7 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
             Setter.zoomOut(x, y);
         }
         
-        MandelArr = Setter.getMandelSet();
-        Image.reDo(MandelArr);
+        newPaint();
         StatusBar.setZoom(Setter.getZoom());
         
     }
@@ -159,8 +167,7 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
 
             if ((DragCoord[0] != DragCoord[2]) && (DragCoord[1] != DragCoord[3])) {
                 Setter.drag(DragCoord);
-                MandelArr = Setter.getMandelSet();
-                Image.reDo(MandelArr);
+                newPaint();
 
             }
       
@@ -190,6 +197,15 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
     }
     
    
+    public void newPaint() {
+        //while (ProgBar.getValue() != 100) {
+            
+        //}
+        //MandelArr = Setter.getMandelSet();
+        //Image.reDo(MandelArr);
+        
+    }
+    
     public void reSize() {
         
         Setter.resize(getWidth(), getHeight());
@@ -222,8 +238,7 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
     
     public void setMode(int mode) {
         Setter.setMode(mode);
-        MandelArr = Setter.getMandelSet();
-        Image.reDo(MandelArr);
+        newPaint();
 
     }
     
