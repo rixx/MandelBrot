@@ -242,5 +242,10 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
 
     }
     
+    public void setMode(int mode, double X, double Y) {
+        Setter.setMode(mode,X,Y);
+        newPaint();
+    }
+    
 
 }

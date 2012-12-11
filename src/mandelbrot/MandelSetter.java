@@ -1,7 +1,6 @@
 package mandelbrot;
 
 import javax.swing.JProgressBar;
-import javax.swing.SwingUtilities;
 
 
 /**
@@ -18,6 +17,7 @@ public final class MandelSetter {
     private double realWidth, realHeight;
     private double xStart, yStart, xEnd, yEnd;
     private double increment;
+    private double juliaX, juliaY;
     private int zoom, zoomFactor = 2;
     private JProgressBar ProgBar;
     private ImagePanel Image;
@@ -290,6 +290,13 @@ public final class MandelSetter {
         reload();
     }
     
+    public void setMode(int mode, double X, double Y) {
+        this.mode = 32 + mode;
+        this.juliaX = X;
+        this.juliaY = Y;
+        reload();
+    }
+    
     
     /*
      * Seriously, bow before me.
@@ -298,6 +305,12 @@ public final class MandelSetter {
         
         double xTotal, yTotal, temp;
         int outerIterator, innerIterator;
+        Boolean julia = false;
+        
+        if (mode > 32) {
+            mode -= 32;
+            julia = true;
+        } 
         
         xTotal = 0;
         yTotal = 0;
@@ -328,8 +341,14 @@ public final class MandelSetter {
             }
         }
         
-        xTotal += x;
-        yTotal += y;
+        if (julia == false) {
+            xTotal += x;
+            yTotal += y;
+        } else {
+            xTotal += this.juliaX;
+            yTotal += this.juliaY;
+        }
+        
         
         return new double[]{xTotal,yTotal};
         

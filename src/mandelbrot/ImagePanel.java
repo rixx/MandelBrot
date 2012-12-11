@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
- *Yay, this is where the magic takes form and rises in form of a beautiful
+ * Yay, this is where the magic takes form and rises in form of a beautiful
  * image.
  * 
  * Or ugly, depending on the colors.
@@ -26,8 +26,6 @@ public class ImagePanel extends JPanel {
     private ColorSpectrum Spectrum;
     int[][] MandelArr;
     public int width, height, maxIteration;
-    int stripestart, stripewidth;
-    //private Boolean firstTime;
     private boolean firstTime;
     MainFrame parent;
     
@@ -38,74 +36,53 @@ public class ImagePanel extends JPanel {
         this.parent = parent;
         
         Spectrum = new ColorSpectrum();
-        
         firstTime = true;
-        
-        //reDo(MandelArr);
         
     }
     
-    /* It paints.
+    /* It's a-painting.
      * Getting the colors for every entry in the array, and setting
      * the pixels by drawing a 1x1 rectangle ... Java.
      */
     @Override
     public void paint(Graphics g) {
-        int x,y;
         
         if (firstTime == true) {
             image = (BufferedImage) createImage(width, height);
             graphics = image.createGraphics();
-            stripestart = 0;
-            stripewidth = height;
             firstTime = false;
-            
         }
-        
             
         Graphics2D g2 = (Graphics2D) g;
+        g2.drawImage(image, 0, 0, this);
         
-        Spectrum.calculate(MandelArr[width][0]);
+    }
+    
+    
+    public final void reDo(int[][] Array) {
+        int x,y;
         
-        for (x = 0; x < width; x++) {
-            for (y = stripestart; y < stripestart + stripewidth; y++) {
-                
-                graphics.setColor(Spectrum.getColor(MandelArr[x][y],MandelArr[width][0]));
-                graphics.drawRect(x, y, 1, 1);
+        this.MandelArr = Array;
+        
+        if (firstTime == false) {
+            Spectrum.calculate(MandelArr[width][0]);
+
+            for (x = 0; x < width; x++) {
+                for (y = 0; y < height; y++) {
+
+                    graphics.setColor(Spectrum.getColor(MandelArr[x][y],MandelArr[width][0]));
+                    graphics.drawRect(x, y, 1, 1);
+                }
             }
         }
         
-        g2.drawImage(image, 0, 0, this);
-        
-        
-    }
-    
-    
-    public void reDo(int[][] Array) {
-        MandelArr = Array;
-        stripewidth = 10;
-        
-        stripestart = 0;
-        
-        while (stripestart + stripewidth + 1 < height) {
-            paintImmediately(0,stripestart,width,stripewidth);
-            
-            stripestart += stripewidth;
-        }
-        
-        stripestart = height - stripewidth;
-        
-        paintImmediately(0,stripestart,width,height);
-        
         repaint();
         
-        
-        
-        
     }
     
-    /*ooooh, image-saving.
-     * TODO: add option for .JPG (in MyMenu & MainFrame.actionListener)
+    /* 
+     * ooooh, image-saving.
+     * TODO: add option for .JPG 
      */
     public void save() {
         
@@ -139,10 +116,8 @@ public class ImagePanel extends JPanel {
         
         image = (BufferedImage) createImage(this.width, this.height);
         graphics = image.createGraphics();
-            
         
         reDo(this.MandelArr);
-        
         
     }
 }
