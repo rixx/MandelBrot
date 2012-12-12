@@ -1,3 +1,4 @@
+
 package mandelbrot;
 
 import javax.swing.JMenu;
@@ -5,8 +6,9 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
+
 /**
- * Is it an Image? Is it a Label? No, it is a MenuBar!
+ * The MenuBar. Gritty GUI stuff, nothing to see here.
  * 
  * @author rix
  */
@@ -17,6 +19,7 @@ public class MandelMenuBar extends JMenuBar {
                       aboutMenu, saveMenu, zoom2, zoom4, zoom1, mode9, mode10,
                       modeDefault, mode3, mode4, mode5, mode6, mode7, mode8;
     private MainFrame parent;
+    
     
     public MandelMenuBar(MainFrame parent) {
         

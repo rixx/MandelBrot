@@ -1,3 +1,4 @@
+
 package mandelbrot;
 
 import java.awt.Color;
@@ -6,6 +7,7 @@ import java.awt.event.MouseListener;
 import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+
 
 /**
  * Formular to choose a color scheme.
@@ -20,27 +22,27 @@ public class SchemeSelection extends javax.swing.JFrame implements MouseListener
     private ColorSelection Selection;
     private int panelsXstart, panelsYstart, panelsTotalWidth, panelsTotalHeight;
     private JColorChooser ColorChooser;
+
     
     /**
      * Creates new form SchemeSelection
      */
     public SchemeSelection(MainFrame parent) {
+        this.parent = parent;
+    
         this.pack();
         setResizable(false);
         
-        initComponents();
-        
-        this.parent = parent;
-        
         colorArray = new int[6];
-        
         Spectrum = new ColorSpectrum();
-        
         Selection = new ColorSelection(this);
         addMouseListener(this);
         
+        initComponents();
+        
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -207,27 +209,26 @@ public class SchemeSelection extends javax.swing.JFrame implements MouseListener
     
     private void OKbuttonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_OKbuttonMouseClicked
         
-        
-        
-        
     }//GEN-LAST:event_OKbuttonMouseClicked
 
     private void OKbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OKbuttonActionPerformed
+    
         if (Spectrum.getColorCount() <= 1) {
                 JOptionPane.showMessageDialog(this, "You have to choose at least two colors.","Error!",JOptionPane.ERROR_MESSAGE);
+        
         } else {
-                
             parent.repaint();
             showPanels();
             setVisible(false);
-             
         }
     }//GEN-LAST:event_OKbuttonActionPerformed
 
+    
     private void CancelButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CancelButtonMouseClicked
         this.setVisible(false);
     }//GEN-LAST:event_CancelButtonMouseClicked
 
+    
     private void rbCustomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbCustomActionPerformed
         bAddColor.setEnabled(true);
         bClearColor.setEnabled(true);
@@ -238,6 +239,7 @@ public class SchemeSelection extends javax.swing.JFrame implements MouseListener
         
     }//GEN-LAST:event_rbCustomActionPerformed
 
+    
     private void rbStandardActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbStandardActionPerformed
         bAddColor.setEnabled(false);
         bClearColor.setEnabled(false);
@@ -250,22 +252,26 @@ public class SchemeSelection extends javax.swing.JFrame implements MouseListener
         
     }//GEN-LAST:event_rbStandardActionPerformed
 
+    
     private void bShowActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bShowActionPerformed
         showPanels();
     }//GEN-LAST:event_bShowActionPerformed
 
+    
     private void bClearColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bClearColorActionPerformed
          Spectrum.clear();
          
          showPanels();
     }//GEN-LAST:event_bClearColorActionPerformed
 
+    
     private void bAddColorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAddColorActionPerformed
         Selection.override = 0;
         Selection.clearAll();
         Selection.setVisible(true);
     }//GEN-LAST:event_bAddColorActionPerformed
 
+    
     private void rbScheme1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbScheme1ActionPerformed
         Spectrum.clear();
         Spectrum.add(0, 0, 80);
@@ -273,6 +279,7 @@ public class SchemeSelection extends javax.swing.JFrame implements MouseListener
         showPanels();
     }//GEN-LAST:event_rbScheme1ActionPerformed
 
+    
     private void rbScheme2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbScheme2ActionPerformed
         Spectrum.clear();
         Spectrum.add(255, 0, 0);
@@ -281,6 +288,7 @@ public class SchemeSelection extends javax.swing.JFrame implements MouseListener
         showPanels();
     }//GEN-LAST:event_rbScheme2ActionPerformed
 
+    
     private void rbScheme3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbScheme3ActionPerformed
         Spectrum.clear();
         Spectrum.add(0, 0, 80);
@@ -292,6 +300,7 @@ public class SchemeSelection extends javax.swing.JFrame implements MouseListener
         showPanels();
     }//GEN-LAST:event_rbScheme3ActionPerformed
 
+    
     public void showPanels() {
         int panelwidth;
         int colorCount;
@@ -309,12 +318,15 @@ public class SchemeSelection extends javax.swing.JFrame implements MouseListener
             myPanel.setBackground(new Color(0,0,0));
             myPanel.setBounds(panelsXstart, panelsYstart, panelsTotalWidth, panelsTotalHeight);
             myPanel.setVisible(true);
+    
         } else {
             panelwidth = panelsTotalWidth/colorCount;
 
             for (int i = 1; i <= colorCount; i ++){
+        
                 JPanel myPanel = new JPanel();
                 this.add(myPanel);
+                
                 myPanel.setBackground(Spectrum.getColorByNum(i));
                 myPanel.setBounds(panelsXstart + (i - 1) * panelwidth, panelsYstart, panelwidth, panelsTotalHeight);
                 myPanel.setVisible(true);
@@ -357,29 +369,18 @@ public class SchemeSelection extends javax.swing.JFrame implements MouseListener
             Selection.setVisible(true);
         }
             
-        
-    }
-/*
-    @Override
-    public void setVisible(boolean mode) {
-        super.setVisible(mode);
-        showPanels();
-    }
-  */  
-    @Override
-    public void mousePressed(MouseEvent me) {
-        
     }
 
     @Override
-    public void mouseReleased(MouseEvent me) {
-    }
+    public void mousePressed(MouseEvent me) { }
 
     @Override
-    public void mouseEntered(MouseEvent me) {
-    }
+    public void mouseReleased(MouseEvent me) { }
 
     @Override
-    public void mouseExited(MouseEvent me) {
-    }
+    public void mouseEntered(MouseEvent me) { }
+
+    @Override
+    public void mouseExited(MouseEvent me) { }
+
 }

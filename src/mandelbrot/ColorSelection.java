@@ -20,20 +20,20 @@ import javax.swing.event.ChangeListener;
 public class ColorSelection extends javax.swing.JFrame {
     
     private SchemeSelection parent;
+    private int[] colorArray;
+    public int override;
     
-    private int[] colorArray = new int[3];
-    public int override = 0;
     
-    /**
-     * Creates new form ColorSelection
-     */
     public ColorSelection(SchemeSelection parent) {
-        this.parent = parent;
+        MyPreviewPane myPanel;
         
+        this.parent = parent;
+        colorArray = new int[3];
+        override = 0;
         
         initComponents();
         
-        MyPreviewPane myPanel;
+        /* Removing all ChooserPanels except the RGB one */
         myPanel = new MyPreviewPane(ColorChooser);
         ColorChooser.setPreviewPanel(myPanel);
         ColorChooser.removeChooserPanel(ColorChooser.getChooserPanels()[0]);
@@ -43,6 +43,7 @@ public class ColorSelection extends javax.swing.JFrame {
         
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -99,6 +100,9 @@ public class ColorSelection extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    /*
+     * OK Button: give the chosen color to the 
+     */
     private void bOKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bOKActionPerformed
         int r,g,b;
         

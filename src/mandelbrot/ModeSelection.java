@@ -1,18 +1,19 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package mandelbrot;
 
 import javax.swing.JOptionPane;
 
+
 /**
- *
+ * Formular to select the modes of the set.
+ * 
  * @author rix
  */
 public class ModeSelection extends javax.swing.JFrame {
 
     MainFrame parent;
+    
+    
     /**
      * Creates new form ModeSelection
      */
@@ -211,9 +212,11 @@ public class ModeSelection extends javax.swing.JFrame {
         }
         
         if (isValidMode(test)) {
+    
             if (rbMandel.isSelected() == true){
                 parent.setMode(Integer.parseInt(test));
             } else {
+            
                 try {
                     x = Double.parseDouble(JuliaX.getText());
                     y = Double.parseDouble(JuliaY.getText());
@@ -224,10 +227,10 @@ public class ModeSelection extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Please enter two valid numbers for the Julia Set!", "Error", JOptionPane.ERROR_MESSAGE);
                 }
                 
-                
             }
             
             this.setVisible(false);
+        
         } else {
             JOptionPane.showMessageDialog(this, "Please enter an exponent between 2 and 15.", "Error", JOptionPane.ERROR_MESSAGE);
         }
@@ -235,10 +238,12 @@ public class ModeSelection extends javax.swing.JFrame {
     }//GEN-LAST:event_BOKActionPerformed
 
     private void MandelModeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_MandelModeFocusLost
+        
         try {
             if (Integer.parseInt(MandelMode.getText()) > 4 && Integer.parseInt(MandelMode.getText())<=15) {
-                //JOptionPane.showMessageDialog(this, "This will be very slow for values greater than 2 (default).", "Warning", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "This will be very slow for values greater than 2 (default).", "Warning", JOptionPane.ERROR_MESSAGE);
             }
+        
         } catch (NumberFormatException  e) {
             
         }
@@ -249,14 +254,16 @@ public class ModeSelection extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void JuliaModeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JuliaModeActionPerformed
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_JuliaModeActionPerformed
 
     private void JuliaModeFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_JuliaModeFocusLost
-        // TODO add your handling code here:
+        
     }//GEN-LAST:event_JuliaModeFocusLost
 
+    
     private void rbJuliaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbJuliaActionPerformed
+        
         jLabel1.setEnabled(false);
         MandelMode.setEnabled(false);
         JuliaMode.setEnabled(true);
@@ -268,7 +275,9 @@ public class ModeSelection extends javax.swing.JFrame {
         jLabel5.setEnabled(true);
     }//GEN-LAST:event_rbJuliaActionPerformed
 
+    
     private void rbMandelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbMandelActionPerformed
+        
         jLabel1.setEnabled(true);
         MandelMode.setEnabled(true);
         JuliaX.setEnabled(false);
@@ -278,11 +287,12 @@ public class ModeSelection extends javax.swing.JFrame {
         jLabel4.setEnabled(false);
         jLabel5.setEnabled(false);
         JuliaMode.setEnabled(false);
-                
         
     }//GEN-LAST:event_rbMandelActionPerformed
 
+    
 boolean isValidMode(String test) {
+    
     try {
         int i = Integer.parseInt(test);
         

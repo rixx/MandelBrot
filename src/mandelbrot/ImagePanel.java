@@ -10,17 +10,16 @@ import javax.imageio.ImageIO;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+
 /**
- * Yay, this is where the magic takes form and rises in form of a beautiful
- * image.
- * 
- * Or ugly, depending on the colors.
+ * This is where the magic takes form and rises in form of a beautiful image.
  * 
  * Damn, it's like 3 a.m. on a Thursday. This is screwed up.
  * 
  * @author rix
  */
 public class ImagePanel extends JPanel {
+    
     BufferedImage image; 
     Graphics2D graphics;
     private ColorSpectrum Spectrum;
@@ -28,6 +27,7 @@ public class ImagePanel extends JPanel {
     public int width, height, maxIteration;
     private boolean firstTime;
     MainFrame parent;
+    
     
     ImagePanel(int width, int height, int[][] MandelArr, MainFrame parent) {
         this.MandelArr = MandelArr;
@@ -37,12 +37,11 @@ public class ImagePanel extends JPanel {
         
         Spectrum = new ColorSpectrum();
         firstTime = true;
-        
     }
     
-    /* It's a-painting.
-     * Getting the colors for every entry in the array, and setting
-     * the pixels by drawing a 1x1 rectangle ... Java.
+    
+    /*
+     * Slightly modified paint method. Main stuff is in reDo()
      */
     @Override
     public void paint(Graphics g) {
@@ -59,6 +58,10 @@ public class ImagePanel extends JPanel {
     }
     
     
+    /*
+     * This function retrieves the color for every entry in the array
+     * and paints them.
+     */
     public final void reDo(int[][] Array) {
         int x,y;
         
@@ -80,9 +83,11 @@ public class ImagePanel extends JPanel {
         
     }
     
+    
     /* 
-     * ooooh, image-saving.
-     * TODO: add option for .JPG 
+     * Images are being saved to the same directory the application lies in.
+     * Saving is so far only possible in .PNG, because it is lossless and I am
+     * too lazy to add in JPEG.
      */
     public void save() {
         
@@ -92,6 +97,7 @@ public class ImagePanel extends JPanel {
         filename = filename + ".png";
         
         File file = new File(filename);
+        
         try {
             ImageIO.write(image, "PNG", file);
         } catch (IOException ex) {
@@ -99,14 +105,20 @@ public class ImagePanel extends JPanel {
         }
     }
     
+    
     public void setSpectrum(ColorSpectrum Spectrum) {
         this.Spectrum = Spectrum;
     }
+    
     
     public ColorSpectrum getSpectrum() {
         return Spectrum;
     }
     
+    
+    /*
+     * Resizes the image. 
+     */
     public void resize(int width, int height, int[][] MandelArr) {
         this.width = width;
         this.height = height;
