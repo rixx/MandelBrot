@@ -51,6 +51,7 @@ public class ModeSelection extends javax.swing.JFrame {
 
         jLabel1.setText("Please enter an exponent between 2 and 10.");
 
+        MandelMode.setText("2");
         MandelMode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MandelModeActionPerformed(evt);
@@ -93,6 +94,7 @@ public class ModeSelection extends javax.swing.JFrame {
             }
         });
 
+        JuliaMode.setText("2");
         JuliaMode.setEnabled(false);
         JuliaMode.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

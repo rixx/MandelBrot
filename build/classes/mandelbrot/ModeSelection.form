@@ -120,6 +120,9 @@
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="MandelMode">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="2"/>
+      </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="MandelModeActionPerformed"/>
         <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="MandelModeFocusLost"/>
@@ -166,6 +169,7 @@
     </Component>
     <Component class="javax.swing.JTextField" name="JuliaMode">
       <Properties>
+        <Property name="text" type="java.lang.String" value="2"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
