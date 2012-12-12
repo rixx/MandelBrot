@@ -246,16 +246,5 @@ public class MainFrame extends JFrame implements ActionListener,MouseListener,Co
     public void setMode(int mode, double X, double Y) {
         Setter.setMode(mode,X,Y);
     }
-
-    @Override
-    public void mouseDragged(MouseEvent me) {
-        me.translatePoint(me.getComponent().getLocation().x, me.getComponent().getLocation().y);
-        Image.setLocation(me.getX(),me.getY());
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent me) {
-        
-    }
     
 }
