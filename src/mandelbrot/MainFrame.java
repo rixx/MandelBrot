@@ -10,7 +10,6 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import javax.swing.JFrame;
 import javax.swing.JProgressBar;
 
@@ -24,7 +23,7 @@ import javax.swing.JProgressBar;
  * 
  * @author rix
  */
-public class MainFrame extends JFrame implements ActionListener,MouseListener,ComponentListener,MouseMotionListener{
+public class MainFrame extends JFrame implements ActionListener,MouseListener,ComponentListener{
  
     private ImagePanel Image;
     private MandelMenuBar menuBar;
