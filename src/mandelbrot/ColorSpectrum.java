@@ -83,7 +83,8 @@ public class ColorSpectrum {
     public void add(int r, int g, int b) {
         colorCount++;
 
-        int[][] placeHolder = new int[colorCount][3];
+        int[][] placeHolder;
+        placeHolder = new int[colorCount][3];
         
         /* copies ColorArray to placeHolder */
         for (int i = 0; i < colorCount - 1; i++) {
