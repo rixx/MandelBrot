@@ -4,9 +4,13 @@ package mandelbrot;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 
 /**
@@ -29,7 +33,7 @@ public class SchemeSelection extends javax.swing.JFrame implements MouseListener
      */
     public SchemeSelection(MainFrame parent) {
         this.parent = parent;
-    
+        
         this.pack();
         setResizable(false);
         

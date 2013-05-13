@@ -4,8 +4,12 @@ package mandelbrot;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JColorChooser;
 import javax.swing.JLabel;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.colorchooser.ColorSelectionModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -30,6 +34,7 @@ public class ColorSelection extends javax.swing.JFrame {
         this.parent = parent;
         colorArray = new int[3];
         override = 0;
+        
         
         initComponents();
         

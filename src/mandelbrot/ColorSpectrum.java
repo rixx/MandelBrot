@@ -2,6 +2,8 @@
 package mandelbrot;
 
 import java.awt.Color;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -44,11 +46,16 @@ public class ColorSpectrum {
         Boolean found;
 
         if (iteration > 0) {
-
-            r = CompleteArray[iteration][0];
-            g = CompleteArray[iteration][1];
-            b = CompleteArray[iteration][2];
-       
+            try {
+                r = CompleteArray[iteration][0];
+                g = CompleteArray[iteration][1];
+                b = CompleteArray[iteration][2];
+            } catch (java.lang.ArrayIndexOutOfBoundsException ex) {
+                r = 0;
+                g = 0;
+                b = 0;
+                Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+            }
        /* an iteration of -1 indicates that this series is divergent */
         } else {
             r = 0;
